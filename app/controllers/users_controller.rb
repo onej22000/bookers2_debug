@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :ensure_correct_user, only: [:update]
 
-
+  before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :ensure_correct_user, only: [:edit, :update]
 
   def show
     @user = User.find(params[:id])
@@ -10,6 +11,7 @@ class UsersController < ApplicationController
   end
 
   def index
+    @user = User.new
     @users = User.all
     @book = Book.new
   end
@@ -19,9 +21,9 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to users_path(@user), notice: "You have updated user successfully."
+      redirect_to user_path(@user), notice: "You have updated user successfully."
     else
-      render "show"
+      render "edit"
     end
   end
 

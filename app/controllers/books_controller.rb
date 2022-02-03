@@ -1,11 +1,14 @@
 class BooksController < ApplicationController
+  before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def show
     @book = Book.find(params[:id])
     @books = Book.all
     @newbook = Book.new
     @user = @book.user
-    
+
   end
 
   def index
@@ -37,10 +40,10 @@ class BooksController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @book = Book.find(params[:id])
-    @book.destoy
-    redirect_to books_path
+    @book.destroy
+    redirect_to books_path, notice: "successfully delete book!"
   end
 
   private
@@ -51,7 +54,7 @@ class BooksController < ApplicationController
   def ensure_correct_user
     @book = Book.find(params[:id])
     unless @book.user == current_user
-      redirect_to book_path
+      redirect_to books_path
     end
   end
 end
