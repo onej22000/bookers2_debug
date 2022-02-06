@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :ensure_correct_user, only: [:edit, :update]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy, :following, :followers]
 
   def show
     @user = User.find(params[:id])
@@ -26,6 +26,22 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
+
+  def following
+    @user  = User.find(params[:id])
+    @users = User.all
+    render 'show_follow'
+
+  end
+
+  def followers
+    @user  = User.find(params[:id])
+    @users = User.all
+    render 'show_follow'
+
+  end
+
+
 
   private
 

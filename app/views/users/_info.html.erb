@@ -10,7 +10,15 @@
   </tr>
   <tr>
     <th>
-      <%= render 'shared/stats' %>
+        <%= link_to user.followings.count %>
+        following
+    </th>
+  </tr>
+  <% @user ||= current_user %>
+    <tr>
+    <th>
+        <%= link_to @user.followers.count %>
+        followers
     </th>
   </tr>
 </table>
