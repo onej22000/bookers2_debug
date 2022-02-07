@@ -1,0 +1,3 @@
+$("#comment_count").html("<%= j(render 'book_comments/comment_count', book: @comment.book) %>");
+<!--id="comments_areaにをrenderで指定した部分テンプレートに更新-->
+$("#comments_area").html("<%= j(render 'book_comments/book_comment', book_comments: @comment.book.book_comments) %>");

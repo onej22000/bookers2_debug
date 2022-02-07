@@ -52,6 +52,15 @@
         <% end %>
         </ul>
       </div>
+
+
     </div>
   </nav>
+  <div class='container'>
+    <div>
+      <% if user_signed_in? %>
+        <%= render 'layouts/search' %>
+      <% end %>
+    </div>
+  </div>
 </header>
